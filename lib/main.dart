@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multi_level_menu_demo/widgets/custom_drop.dart';
 
 void main() => runApp(MyApp());
 
@@ -32,35 +33,66 @@ class _HomeState extends State<Home> {
         padding: const EdgeInsets.all(20.0),
         child: ListView(
           children: [
-            DropdownButton<String>(
-              /// place dropdown
-              hint: Text('Select Place'),
-              value: selectedPlace,
-              isExpanded: true,
-              items: places.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: onChangedCallback,
+            Container(
+              height: 65,
+              child: InputDecorator(
+                decoration: InputDecoration(
+                  labelText: 'Chain',
+                  labelStyle: Theme.of(context)
+                      .primaryTextTheme
+                      .caption
+                      .copyWith(color: Colors.black, fontSize: 20),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: CustomDropdownButton(
+                    value: selectedPlace,
+                    hint: Text('Select Place'),
+                    items: places.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: onChangedCallback,
+                  ),
+                ),
+              ),
             ),
-            DropdownButton<String>(
-              /// branch dropdown
-              hint: Text('Select branch'),
-              isExpanded: true,
-              value: selectedBranch,
-              items: branches.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: (branch) {
-                setState(() {
-                  selectedBranch = branch;
-                });
-              },
+            SizedBox(
+              height: 50,
+            ),
+            Container(
+              height: 65,
+              child: InputDecorator(
+                decoration: InputDecoration(
+                  labelText: 'Branch',
+                  labelStyle: Theme.of(context)
+                      .primaryTextTheme
+                      .caption
+                      .copyWith(color: Colors.black, fontSize: 20),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: CustomDropdownButton(
+                    value: selectedBranch,
+                    hint: Text('Select branch'),
+                    items: branches.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (branch) {
+                      setState(() {
+                        selectedBranch = branch;
+                      });
+                    },
+                  ),
+                ),
+              ),
             ),
           ],
         ),
